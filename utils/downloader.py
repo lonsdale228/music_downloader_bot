@@ -6,13 +6,10 @@ from pyrogram.types import Message
 import yt_dlp
 
 
-async def edit_message_progress(msg: Message, progress: str):
-    print("amogus")
-    await msg.edit(f'Downloading video...\n{progress}')
-
 async def download_video(url:str,user_id:str|int,msg_to_edit:Message):
     progress:float=0.0
     last_edit_time = 0
+
     def my_hook(d):
         nonlocal last_edit_time
         if d['status'] == 'finished':
@@ -25,7 +22,7 @@ async def download_video(url:str,user_id:str|int,msg_to_edit:Message):
 
             current_time = time.time()
             if current_time - last_edit_time >= 1.0:
-                asyncio.create_task(edit_message_progress(msg_to_edit, f'{progress}%'))
+                #await msg_to_edit.edit(f'Downloading video...\n{progress}')
                 last_edit_time = current_time
                 print(d['filename'], d['_percent_str'], d['_eta_str'])
 
@@ -58,4 +55,5 @@ async def download_video(url:str,user_id:str|int,msg_to_edit:Message):
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
 
-    return out_path+".mp3",video_title
+
+    return out_path + ".mp3", video_title
