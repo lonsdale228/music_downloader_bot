@@ -7,6 +7,7 @@ from pyrogram import filters
 from utils.downloader import download_video
 
 
+
 async def check_for_url(url):
     ...
 
@@ -14,5 +15,6 @@ async def check_for_url(url):
 async def hello(client, message:Message):
     msg_to_edit=await message.reply("Download started!")
     out_path,audio_name=await download_video(message.text,message.from_user.id,msg_to_edit)
-    audio=open(out_path,'rb')
-    await message.reply_audio(audio,title=audio_name)
+    # audio=open(out_path,'rb')
+    await message.reply_audio(out_path,title=audio_name)
+    # audio.close()

@@ -22,7 +22,6 @@ async def download_video(url:str,user_id:str|int,msg_to_edit:Message):
 
             current_time = time.time()
             if current_time - last_edit_time >= 1.0:
-                #await msg_to_edit.edit(f'Downloading video...\n{progress}')
                 last_edit_time = current_time
                 print(d['filename'], d['_percent_str'], d['_eta_str'])
 
